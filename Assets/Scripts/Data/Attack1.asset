@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b59f7884eb95e24e909248e27513688, type: 3}
+  m_Name: Attack1
+  m_EditorClassIdentifier: 
+  _attackID: 1
+  _clip: {fileID: 7400000, guid: e127267989496a144b57b8e354f53b93, type: 2}
+  _animationName: Attack1
+  _animatorCondition: IsAttacking1
+  _attackDamage: 8
+  _attackStartup: 7
+  _attackCooldown: 29
+  _hitStun: 1
+  _knockbackForce: 1
+  _canComboFrames:
+  - {fileID: 21300000, guid: 56a72869fa2a92d43a0d68181ac59ea9, type: 3}
+  _endFrame: {fileID: 21300000, guid: 9d662a52fe1083e44a056a4b48b532cd, type: 3}
