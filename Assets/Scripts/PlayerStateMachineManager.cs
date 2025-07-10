@@ -1,8 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Playables;
+using static FrameManager;
 
 public enum EPlayerState
 {
@@ -16,6 +19,9 @@ public enum EPlayerState
 public class PlayerStateMachineManager : Singleton<PlayerStateMachineManager>
 {
     #region Attributs
+    [Header("Player ID")]
+    [SerializeField] private int _playerID;
+
     [Header("States")]
     private Dictionary<EPlayerState, APlayerState> _states = null;
     private EPlayerState _currentState;
@@ -44,7 +50,7 @@ public class PlayerStateMachineManager : Singleton<PlayerStateMachineManager>
 
     private PlayerControls _controls;
 
-    private Dictionary<EPlayerState, int> _stateOnFrame = new Dictionary<EPlayerState, int>();
+    private Dictionary<EPlayerState, uint> _stateOnFrame = new Dictionary<EPlayerState, uint>();
     #endregion Attributs
 
     #region Events
@@ -134,7 +140,7 @@ public class PlayerStateMachineManager : Singleton<PlayerStateMachineManager>
         get { return _fixedTime; }
         set { _fixedTime = value; }
     }
-    public Dictionary<EPlayerState, int> StateOnFrame
+    public Dictionary<EPlayerState, uint> StateOnFrame
     {
         get { return _stateOnFrame; }
     }
@@ -160,15 +166,23 @@ public class PlayerStateMachineManager : Singleton<PlayerStateMachineManager>
     // UpdateOnFrame is called once per frame
     public void UpdateOnFrame()
     {
+        FrameActionData data = new FrameActionData()
+        {
+            PlayerID = _playerID,
+            PlayerState = _currentState,
+            StateFrame = 0
+        };
         FixedTime += Time.deltaTime;
         CurrentState.Update();
         _animator.SetFloat("Speed", _rb.velocity.x);
+        FrameManager.Instance.AddActionFrameData(data);
+        FrameManager.Instance.RemoveActionFrameData();
     }
 
     // Change the state of the state machine and store on which frame it does
     public void ChangeState(EPlayerState nextState)
     {
-        Debug.Log("Transition from " + CurrentState + " To " + nextState);
+        UnityEngine.Debug.Log("Transition from " + CurrentState + " To " + nextState);
         CurrentState.Exit();
         _stateOnFrame.Clear();
         _lastState = _currentState;

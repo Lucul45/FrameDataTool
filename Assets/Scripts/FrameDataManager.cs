@@ -25,24 +25,23 @@ public class FrameDataManager : Singleton<FrameDataManager>
             _activeFrameText.text = "Active frames : " + (_player1.CurrentAttack.AttackStartup + 1) + "-" + (_player1.CurrentAttack.AttackCooldown - 1);
             _cooldownFrameText.text = "Cooldown frames : " + _player1.CurrentAttack.AttackCooldown;
         }
-        // if player 1 transition from an attack to idle and player 2 transition from being hurt to idle
-        if (_player1.EnumCurrentState == EPlayerState.IDLE && _player1.LastState == EPlayerState.MELEE && _player2.EnumCurrentState == EPlayerState.IDLE && _player2.LastState == EPlayerState.HURT)
+        if (FrameManager.Instance.GetEndFrameAttack() != 0)
         {
-            if ( _player1.StateOnFrame.ContainsKey(EPlayerState.IDLE))
-            {
-                // getting the frame the transition happened
-                _p1EndFrame = _player1.StateOnFrame[EPlayerState.IDLE];
-            }
-            if (_player2.StateOnFrame.ContainsKey(EPlayerState.IDLE))
-            {
-                // getting the frame the transition happened
-                _p2EndFrame = _player2.StateOnFrame[EPlayerState.IDLE];
-            }
+            _p1EndFrame = FrameManager.Instance.GetEndFrameAttack();
+        }
+        if (FrameManager.Instance.GetEndFrameHurt() != 0)
+        {
+            _p2EndFrame = FrameManager.Instance.GetEndFrameHurt();
         }
         // security to avoid errors
-        if (_p1EndFrame >= 0 && _p2EndFrame >= 0)
+        if (_p1EndFrame > 0 && _p2EndFrame > 0)
         {
+            Debug.Log(_p1EndFrame + "/" + _p2EndFrame);
             _advantageFrameText.text = "Advantage frames : " + (_p2EndFrame - _p1EndFrame);
+        }
+        else
+        {
+            _advantageFrameText.text = "Advantage frames : --";
         }
     }
 

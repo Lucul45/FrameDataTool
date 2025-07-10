@@ -135,6 +135,10 @@ PrefabInstance:
       value: Controller
       objectReference: {fileID: 0}
     - target: {fileID: 1902538222313046845, guid: a1450121f5fafe24c9c6812f2900ade1, type: 3}
+      propertyPath: _playerID
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1902538222313046845, guid: a1450121f5fafe24c9c6812f2900ade1, type: 3}
       propertyPath: _otherPlayer
       value: 
       objectReference: {fileID: 471648013}
@@ -452,6 +456,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1902538222313046845, guid: a1450121f5fafe24c9c6812f2900ade1, type: 3}
+      propertyPath: _playerID
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1902538222313046845, guid: a1450121f5fafe24c9c6812f2900ade1, type: 3}
       propertyPath: _otherPlayer
       value: 
