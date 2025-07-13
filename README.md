@@ -1,26 +1,49 @@
 # FrameDataTool
 Frame data tool for a fighting game
 
+[![forthebadge](http://forthebadge.com/images/badges/built-with-love.svg)](http://forthebadge.com)  [![forthebadge](http://forthebadge.com/images/badges/powered-by-electricity.svg)](http://forthebadge.com)
+
+## My background
+
+I started to be really into programming 3/4 years ago. I learned Unity through a game design school where my professor and my friends showed me how permissive and free is a game engine. It maked me wanted to create experience for people with a strong game feel. I'm making this tool because I'm a big fan of fighting games and I've always wanted to make one. I jumped into the project but I rapidly realise that I need some frame data tool because frame data is really centralizer for a fighting game. I also wanted to challenge myself, progress in programmation and share my code to be part and experience the programmation community.
 
 
-MIT License
 
-Copyright (c) 2025 Lucas TERRIER
+## The tool
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+This project is frame data tool for a fighting style game. It contains an on 60 frames seconds update, a frame data UI that show the frames on the current and a calculation of the frame advantage of the attacks.
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+### Requirements
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+- Unity 2022.3.46f1
+- Any IDE
+
+### Installation
+
+!!!
+- Download the package 
+!!!
+
+## Made with
+
+* Unity 2022.3.46f1
+* Visual Studio 2022 Community
+
+## Contributing
+
+!!!
+If you'd like to contribute, please read the [CONTRIBUTING.md] file (https://example.org) to find out how.
+!!!
+
+## Author
+
+* **Lucas TERRIER** _alias_ [@Lucul45](https://github.com/Lucul45)
+!!!
+Lisez la liste des [contributeurs](https://github.com/your/project/contributors) pour voir qui à aidé au projet !
+
+_(pour le lien mettez simplement l'URL de votre projet suivi de ``/contirubors``)_
+!!!
+
+## License
+
+This project is licensed -MIT License see the file [LICENSE.md](LICENSE.md) for more information.
