@@ -146,6 +146,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player2
       objectReference: {fileID: 0}
+    - target: {fileID: 3555388760170741894, guid: a1450121f5fafe24c9c6812f2900ade1, type: 3}
+      propertyPath: m_TagString
+      value: Player2
+      objectReference: {fileID: 0}
     - target: {fileID: 6032529101743062088, guid: a1450121f5fafe24c9c6812f2900ade1, type: 3}
       propertyPath: m_LocalPosition.x
       value: 7
@@ -194,7 +198,12 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 2
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 7770802639889903698, guid: a1450121f5fafe24c9c6812f2900ade1, type: 3}
+      propertyPath: m_TagString
+      value: Player2
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 3407591813129523428, guid: a1450121f5fafe24c9c6812f2900ade1, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -464,6 +473,10 @@ PrefabInstance:
       propertyPath: _otherPlayer
       value: 
       objectReference: {fileID: 1318774694}
+    - target: {fileID: 3407591813129523428, guid: a1450121f5fafe24c9c6812f2900ade1, type: 3}
+      propertyPath: _attackCollider
+      value: 
+      objectReference: {fileID: 1447067260}
     - target: {fileID: 3555388760170741894, guid: a1450121f5fafe24c9c6812f2900ade1, type: 3}
       propertyPath: m_Name
       value: Player1
@@ -583,17 +596,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 3555388760170741894, guid: a1450121f5fafe24c9c6812f2900ade1, type: 3}
   m_PrefabInstance: {fileID: 187335398}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1318774695 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1902538222313046845, guid: a1450121f5fafe24c9c6812f2900ade1, type: 3}
-  m_PrefabInstance: {fileID: 187335398}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1318774694}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 54e30983ddc4c1b4b8a044a6948e96bf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1380987522
 GameObject:
   m_ObjectHideFlags: 0
@@ -638,6 +640,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &1447067260 stripped
+BoxCollider2D:
+  m_CorrespondingSourceObject: {fileID: 5184936694353638530, guid: a1450121f5fafe24c9c6812f2900ade1, type: 3}
+  m_PrefabInstance: {fileID: 997989788}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1513126137
 GameObject:
   m_ObjectHideFlags: 0
@@ -671,8 +678,7 @@ MonoBehaviour:
   _activeFrameText: {fileID: 438633732}
   _cooldownFrameText: {fileID: 438633731}
   _advantageFrameText: {fileID: 438633730}
-  _player1: {fileID: 471648014}
-  _player2: {fileID: 1318774695}
+  _stateMachineManager: {fileID: 471648014}
 --- !u!4 &1513126139
 Transform:
   m_ObjectHideFlags: 0

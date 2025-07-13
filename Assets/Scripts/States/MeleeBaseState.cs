@@ -28,6 +28,7 @@ public class MeleeBaseState : APlayerState
             _stateManager.ShouldCombo = false;
             _stateManager.AttackIndex = 1;
         }
+        _stateManager.IsHitting = false;
         _stateManager.AttackPressed -= Attack;
     }
 
@@ -45,7 +46,6 @@ public class MeleeBaseState : APlayerState
     {
         _currentAttackFrame = Convert.ToInt32(_animator.GetCurrentAnimatorStateInfo(0).normalizedTime * (_animator.GetCurrentAnimatorClipInfo(0)[0].clip.length * _animator.GetCurrentAnimatorClipInfo(0)[0].clip.frameRate));
         _stateManager.Move(Vector2.zero);
-        Debug.Log(_currentAttackFrame);
         if (_stateManager.CurrentAttack.CanComboFrames.Contains<Sprite>(_spriteRenderer.sprite))
         {
             _stateManager.ShouldCombo = true;

@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7865979820750796383}
   - component: {fileID: 5184936694353638530}
+  - component: {fileID: 3407591813129523428}
   m_Layer: 0
   m_Name: AttackHitbox
   m_TagString: Untagged
@@ -77,6 +78,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.0533638, y: 3.8296242}
   m_EdgeRadius: 0
+--- !u!114 &3407591813129523428
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3195654395752132743}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b1cdabe8fe1b914b83d1f679bafb55e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playerStateMachineManager: {fileID: 1902538222313046845}
 --- !u!1 &3555388760170741894
 GameObject:
   m_ObjectHideFlags: 0
@@ -213,7 +227,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54e30983ddc4c1b4b8a044a6948e96bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerDamageManager: {fileID: 0}
+  _playerID: 0
   _rb: {fileID: 216382335144830490}
   _animator: {fileID: 1875955441753283811}
   _spriteRenderer: {fileID: 37026037613520414}
@@ -224,7 +238,6 @@ MonoBehaviour:
   _hitbox: {fileID: 3195654395752132743}
   _otherPlayer: {fileID: 0}
   _playerSpeed: 7
-  _clankForce: 100
 --- !u!1 &7770802639889903698
 GameObject:
   m_ObjectHideFlags: 0

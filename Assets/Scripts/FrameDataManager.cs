@@ -9,8 +9,7 @@ public class FrameDataManager : Singleton<FrameDataManager>
     [SerializeField] private TextMeshProUGUI _activeFrameText;
     [SerializeField] private TextMeshProUGUI _cooldownFrameText;
     [SerializeField] private TextMeshProUGUI _advantageFrameText;
-    [SerializeField] private PlayerStateMachineManager _player1;
-    [SerializeField] private PlayerStateMachineManager _player2;
+    [SerializeField] private PlayerStateMachineManager _stateMachineManager;
 
     private int _p1EndFrame = 0;
     private int _p2EndFrame = 0;
@@ -18,13 +17,17 @@ public class FrameDataManager : Singleton<FrameDataManager>
     // Change the frame data UI
     public void ChangeFrameDataUI()
     {
-        // Simply get the current attack data and show it in UI
-        if (_player1.CurrentAttack != null)
+        if (_stateMachineManager.EnumCurrentState == EPlayerState.MELEE)
         {
-            _startupFrameText.text = "Start up frames : " + _player1.CurrentAttack.AttackStartup;
-            _activeFrameText.text = "Active frames : " + (_player1.CurrentAttack.AttackStartup + 1) + "-" + (_player1.CurrentAttack.AttackCooldown - 1);
-            _cooldownFrameText.text = "Cooldown frames : " + _player1.CurrentAttack.AttackCooldown;
+            // Simply get the current attack data and show it in UI
+            if (_stateMachineManager.CurrentAttack != null)
+            {
+                _startupFrameText.text = "Start up frames : " + _stateMachineManager.CurrentAttack.AttackStartup;
+                _activeFrameText.text = "Active frames : " + (_stateMachineManager.CurrentAttack.AttackStartup + 1) + "-" + (_stateMachineManager.CurrentAttack.AttackCooldown - 1);
+                _cooldownFrameText.text = "Cooldown frames : " + _stateMachineManager.CurrentAttack.AttackCooldown;
+            }
         }
+        // Getting the last frames of the attack and of the hurting state
         if (FrameManager.Instance.GetEndFrameAttack() != 0)
         {
             _p1EndFrame = FrameManager.Instance.GetEndFrameAttack();

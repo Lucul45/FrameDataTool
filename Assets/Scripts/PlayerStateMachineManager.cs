@@ -46,6 +46,8 @@ public class PlayerStateMachineManager : Singleton<PlayerStateMachineManager>
     private int _attackIndex = 1;
     private bool _shouldCombo = false;
 
+    private bool _isHitting = false;
+
     private bool _isStunned = false;
 
     private PlayerControls _controls;
@@ -131,6 +133,11 @@ public class PlayerStateMachineManager : Singleton<PlayerStateMachineManager>
         get { return _shouldCombo; }
         set { _shouldCombo = value; }
     }
+    public bool IsHitting
+    {
+        get { return _isHitting; }
+        set { _isHitting = value; }
+    }
     public bool IsStunned
     {
         get { return _isStunned; }
@@ -170,7 +177,8 @@ public class PlayerStateMachineManager : Singleton<PlayerStateMachineManager>
         {
             PlayerID = _playerID,
             PlayerState = _currentState,
-            StateFrame = 0
+            StateFrame = 0,
+            IsHitting = _isHitting
         };
         FixedTime += Time.deltaTime;
         CurrentState.Update();

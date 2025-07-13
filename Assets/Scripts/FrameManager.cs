@@ -22,6 +22,7 @@ public class FrameManager : Singleton<FrameManager>
         public int PlayerID { get; set; }
         public EPlayerState PlayerState { get; set; }
         public int StateFrame { get; set; }
+        public bool IsHitting { get; set; }
     }
 
     public uint ElapsedFrames
@@ -40,13 +41,9 @@ public class FrameManager : Singleton<FrameManager>
         remove { _frameUpdate -= value; }
     }
 
-    private void Start()
-    {
-        
-    }
-
     private void FixedUpdate()
     {
+        // every 1/60 of a second, a frame passed
         if (_elapsedTime >= 1/60)
         {
             _elapsedFrames++;
@@ -57,22 +54,21 @@ public class FrameManager : Singleton<FrameManager>
         {
             _elapsedTime += Time.fixedDeltaTime;
         }
-        //Debug.Log(_playersActionFrames[_elapsedFrames - 1]?.Where(data => data.PlayerID == 1 && data.PlayerState == EPlayerState.IDLE).Any());
-        //Debug.Log(_playersActionFrames.Count != 0 && _playersActionFrames[_elapsedFrames].Where(data => data.PlayerID == 1 && data.PlayerState == EPlayerState.IDLE).Any() && _playersActionFrames[_elapsedFrames - 1].Where(data => data.PlayerID == 1 && data.PlayerState == EPlayerState.MELEE).Any());
     }
 
     public void AddActionFrameData(FrameActionData newData)
     {
         if (_playersActionFrames.ContainsKey(_elapsedFrames))
-        { //There's already data for the current frame, YaY!
+        { // There's already data for the current frame, YaY!
             _playersActionFrames[_elapsedFrames].Add(newData); //New data has been added into the stack
         }
         else
-        { //The current frame has no data! Hell nah! :speaking_head:
+        { // The current frame has no data! Hell nah! :speaking_head:
             _playersActionFrames.Add(_elapsedFrames, new List<FrameActionData>() { newData });
         }
     }
 
+    // Remove the smallest frame data
     public void RemoveActionFrameData()
     {
         if (_playersActionFrames.Count >= 1000)
@@ -92,7 +88,7 @@ public class FrameManager : Singleton<FrameManager>
     public int GetEndFrameAttack()
     {
         // if there is frames that as been recorded and there is a recorded current frame about the player 1 which the player 1 is in idle and was attacking the frame before
-        if (_playersActionFrames.Count != 0 && _playersActionFrames[_elapsedFrames].Where(data => data.PlayerID == 1 && data.PlayerState == EPlayerState.IDLE).Any() && _playersActionFrames[_elapsedFrames - 1].Where(data => data.PlayerID == 1 && data.PlayerState == EPlayerState.MELEE).Any())
+        if (_playersActionFrames.Count != 0 && _playersActionFrames[_elapsedFrames].Where(data => data.PlayerID == 1 && data.PlayerState == EPlayerState.IDLE).Any() && _playersActionFrames[_elapsedFrames - 1].Where(data => data.PlayerID == 1 && data.PlayerState == EPlayerState.MELEE && data.IsHitting == true).Any())
         {
             // then return the current frame
             _p1EndFrame = (int)_elapsedFrames;
