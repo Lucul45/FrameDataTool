@@ -24,6 +24,7 @@ public class IdleState : APlayerState
 
     public override void Update()
     {
+        // If the input isn't neutral and the character can move
         if (_stateManager.MovementInput.x != 0f && _stateManager.CanMove)
         {
             _stateManager.ChangeState(EPlayerState.MOVE);

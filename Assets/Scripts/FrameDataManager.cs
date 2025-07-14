@@ -13,6 +13,19 @@ public class FrameDataManager : Singleton<FrameDataManager>
 
     private int _p1EndFrame = 0;
     private int _p2EndFrame = 0;
+    private int _p1Updated = 0;
+    private int _p2Updated = 0;
+
+    public int P1Updated
+    {
+        get { return _p1Updated; }
+        set { _p1Updated = value; }
+    }
+    public int P2Updated
+    {
+        get { return _p2Updated; }
+        set { _p2Updated = value; }
+    }
     
     // Change the frame data UI
     public void ChangeFrameDataUI()
@@ -36,10 +49,10 @@ public class FrameDataManager : Singleton<FrameDataManager>
         {
             _p2EndFrame = FrameManager.Instance.GetEndFrameHurt();
         }
-        // security to avoid errors
-        if (_p1EndFrame > 0 && _p2EndFrame > 0)
+        // security to avoid errors and making sure both end frames are updated
+        if (_p1EndFrame > 0 && _p2EndFrame > 0 && _p1Updated == _p2Updated)
         {
-            Debug.Log(_p1EndFrame + "/" + _p2EndFrame);
+            //Debug.Log(_p1EndFrame + "/" + _p2EndFrame);
             _advantageFrameText.text = "Advantage frames : " + (_p2EndFrame - _p1EndFrame);
         }
         else

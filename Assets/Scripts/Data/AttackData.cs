@@ -12,7 +12,7 @@ public class AttackData : ScriptableObject
     [SerializeField] private int _attackDamage;
     [SerializeField] private int _attackStartup;
     [SerializeField] private int _attackCooldown;
-    [SerializeField] private float _hitStun;
+    [SerializeField] private float _advantageFrames;
     [SerializeField] private float _knockbackForce;
     [SerializeField] private Sprite[] _canComboFrames;
     [SerializeField] private Sprite _endFrame;
@@ -45,9 +45,9 @@ public class AttackData : ScriptableObject
     {
         get { return _attackCooldown; }
     }
-    public float HitStun
+    public float AdvantageFrames
     {
-        get { return _hitStun; }
+        get { return _advantageFrames; }
     }
     public float KnockbackForce
     {

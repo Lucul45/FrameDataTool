@@ -19,7 +19,7 @@ MonoBehaviour:
   _attackDamage: 8
   _attackStartup: 7
   _attackCooldown: 29
-  _hitStun: 1
+  _advantageFrames: 5
   _knockbackForce: 1
   _canComboFrames:
   - {fileID: 21300000, guid: 56a72869fa2a92d43a0d68181ac59ea9, type: 3}

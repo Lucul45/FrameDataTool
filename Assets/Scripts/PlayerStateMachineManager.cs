@@ -87,6 +87,10 @@ public class PlayerStateMachineManager : Singleton<PlayerStateMachineManager>
     {
         get { return _lastState; }
     }
+    public Animator Animator
+    {
+        get { return _animator; }
+    }
     public AttackData[] AttacksData
     {
         get
@@ -219,12 +223,13 @@ public class PlayerStateMachineManager : Singleton<PlayerStateMachineManager>
     }
 
     // Push the player backward
-    public void Knockback(float force, float duration)
+    public void Knockback(float force, int duration)
     {
-        float time = 0;
+        uint startFrame = FrameManager.Instance.ElapsedFrames;
+        uint time = 0;
         while (time < duration)
         {
-            time += Time.deltaTime;
+            time = FrameManager.Instance.ElapsedFrames - startFrame;
             _rb.velocity = -transform.right * force;
         }
     }

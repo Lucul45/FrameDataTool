@@ -92,6 +92,7 @@ public class FrameManager : Singleton<FrameManager>
         {
             // then return the current frame
             _p1EndFrame = (int)_elapsedFrames;
+            FrameDataManager.Instance.P1Updated++;
         }
         return _p1EndFrame;
     }
@@ -103,6 +104,7 @@ public class FrameManager : Singleton<FrameManager>
         {
             // then return the current frame
             _p2EndFrame = (int)_elapsedFrames;
+            FrameDataManager.Instance.P2Updated++;
         }
         return _p2EndFrame;
     }

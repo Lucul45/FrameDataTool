@@ -10,6 +10,7 @@ public class MeleeBaseState : APlayerState
 
     public override void Enter()
     {
+        // Getting the current attack based on which index we are on
         foreach (AttackData a in _stateManager.AttacksData)
         {
             if (a.AttackID == _stateManager.AttackIndex)
@@ -23,11 +24,6 @@ public class MeleeBaseState : APlayerState
 
     public override void Exit()
     {
-        if (!_stateManager.ShouldCombo)
-        {
-            _stateManager.ShouldCombo = false;
-            _stateManager.AttackIndex = 1;
-        }
         _stateManager.IsHitting = false;
         _stateManager.AttackPressed -= Attack;
     }
@@ -44,8 +40,11 @@ public class MeleeBaseState : APlayerState
 
     public override void Update()
     {
+        // Calculate which frame the current attack is on
         _currentAttackFrame = Convert.ToInt32(_animator.GetCurrentAnimatorStateInfo(0).normalizedTime * (_animator.GetCurrentAnimatorClipInfo(0)[0].clip.length * _animator.GetCurrentAnimatorClipInfo(0)[0].clip.frameRate));
+        // Making sure the character can't move while attacking
         _stateManager.Move(Vector2.zero);
+        // If the character attack is on a frame where he can combo
         if (_stateManager.CurrentAttack.CanComboFrames.Contains<Sprite>(_spriteRenderer.sprite))
         {
             _stateManager.ShouldCombo = true;
@@ -54,6 +53,7 @@ public class MeleeBaseState : APlayerState
         {
             _stateManager.ShouldCombo = false;
         }
+        // If the character finished his attack animation
         if (_animator.GetBool(_stateManager.CurrentAttack.AnimatorCondition) && _animator.GetCurrentAnimatorStateInfo(0).IsName(_stateManager.CurrentAttack.AnimationName))
         {
             if (_animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f && !_animator.IsInTransition(0))
