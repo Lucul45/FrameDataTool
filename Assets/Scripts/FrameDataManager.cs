@@ -45,6 +45,7 @@ public class FrameDataManager : Singleton<FrameDataManager>
         FrameManager.Instance.FrameUpdate += ChangeFrameDataUI;
     }
 
+    // Show the frame advantage in the UI and reset the last frames of the attack and hurting state
     private void ShowFrameAdvantage()
     {
         _advantageFrameText.text = "Advantage frames : " + (_p2EndFrame - _p1EndFrame);

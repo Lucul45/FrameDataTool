@@ -39,12 +39,8 @@ public class HurtState : APlayerState
     public override void Update()
     {
         StateFrame++;
-        //Debug.Log(StateFrame);
-        //Debug.Log(((int)((_stateManager.OtherPlayer.GetComponent<PlayerStateMachineManager>().CurrentAttack.Clip.length - (_stateManager.OtherPlayer.GetComponent<PlayerStateMachineManager>().Animator.GetCurrentAnimatorStateInfo(0).normalizedTime) * 60)) + _stateManager.OtherPlayer.GetComponent<PlayerStateMachineManager>().CurrentAttack.AdvantageFrames + 1));
-        //Debug.Log(_otherCurrentStateInfo.normalizedTime * _attackHitten.Clip.length);
-        // If the character isn't stunned and was hurt more frames than the hitstun of the attack he was hurted with
-        //(FrameManager.Instance.ElapsedFrames - _enterFrame) > ((int)(_attackHitten.Clip.length * 60)) + _attackHitten.AdvantageFrames + 1
-        if (!_stateManager.IsStunned && StateFrame == (int)(AttackHitten.Clip.length * 60) - _hitAttackFrame + _attackHitten.AdvantageFrames)
+        // If the frame on the current is greater or equal than hitstun, then change state to idle
+        if (StateFrame >= (int)(AttackHitten.Clip.length * 60) - _hitAttackFrame + _attackHitten.AdvantageFrames)
         {
             _stateManager.ChangeState(EPlayerState.IDLE);
         }

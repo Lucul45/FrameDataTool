@@ -36,7 +36,6 @@ public class PlayerStateMachineManager : Singleton<PlayerStateMachineManager>
     [SerializeField] private GameObject _otherPlayer;
 
     private uint _stateFrame = 0;
-    private float _fixedTime = 0f;
 
     private uint _lastAttackToIdleFrame = 0;
     private uint _lastHurtToIdleFrame = 0;
@@ -51,8 +50,6 @@ public class PlayerStateMachineManager : Singleton<PlayerStateMachineManager>
     private bool _shouldCombo = false;
 
     private bool _isHitting = false;
-
-    private bool _isStunned = false;
 
     private PlayerControls _controls;
 
@@ -163,15 +160,6 @@ public class PlayerStateMachineManager : Singleton<PlayerStateMachineManager>
         get { return _isHitting; }
         set { _isHitting = value; }
     }
-    public bool IsStunned
-    {
-        get { return _isStunned; }
-    }
-    public float FixedTime
-    {
-        get { return _fixedTime; }
-        set { _fixedTime = value; }
-    }
     public Dictionary<EPlayerState, uint> StateOnFrame
     {
         get { return _stateOnFrame; }
@@ -181,7 +169,9 @@ public class PlayerStateMachineManager : Singleton<PlayerStateMachineManager>
     // Start is called before the first frame update
     void Start()
     {
+        // Plug the update on the frames
         FrameManager.Instance.FrameUpdate += UpdateOnFrame;
+        // Initializing the state machine
         _states = new Dictionary<EPlayerState, APlayerState>();
         _states.Add(EPlayerState.IDLE, new IdleState());
         _states.Add(EPlayerState.MOVE, new MoveState());
@@ -198,6 +188,7 @@ public class PlayerStateMachineManager : Singleton<PlayerStateMachineManager>
     // UpdateOnFrame is called once per frame
     public void UpdateOnFrame()
     {
+        // Registering the data on each frame
         FrameActionData data = new FrameActionData()
         {
             PlayerID = _playerID,
@@ -205,10 +196,11 @@ public class PlayerStateMachineManager : Singleton<PlayerStateMachineManager>
             StateFrame = _stateFrame,
             IsHitting = _isHitting
         };
-        FixedTime += Time.deltaTime;
         CurrentState.Update();
         _animator.SetFloat("Speed", _rb.velocity.x);
+        // Add a new frame data to the dictionary
         FrameManager.Instance.AddActionFrameData(data);
+        // Remove the earliest frame data of the dictionary
         FrameManager.Instance.RemoveActionFrameData();
     }
 

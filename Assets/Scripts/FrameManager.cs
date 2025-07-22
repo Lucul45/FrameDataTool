@@ -61,21 +61,24 @@ public class FrameManager : Singleton<FrameManager>
         }
     }
 
+    // Add the data of the current frame to the dictionary
     public void AddActionFrameData(FrameActionData newData)
     {
+        // There's already data for the current frame
         if (_playersActionFrames.ContainsKey(_elapsedFrames))
-        { // There's already data for the current frame, YaY!
-            _playersActionFrames[_elapsedFrames].Add(newData); //New data has been added into the stack
+        {
+            _playersActionFrames[_elapsedFrames].Add(newData); //New data has been added into the list
         }
         else
-        { // The current frame has no data! Hell nah! :speaking_head:
+        { // The current frame has no data
             _playersActionFrames.Add(_elapsedFrames, new List<FrameActionData>() { newData });
         }
     }
 
-    // Remove the smallest frame data
+    // Remove the earliest frame data
     public void RemoveActionFrameData()
     {
+        // There 1000 frames registered
         if (_playersActionFrames.Count >= 1000)
         {
             uint minFrame = _playersActionFrames.Keys.ToArray()[0];
@@ -95,7 +98,7 @@ public class FrameManager : Singleton<FrameManager>
         // if there is frames that as been recorded and there is a recorded current frame about the player 1 which the player 1 is in idle and was attacking the frame before
         if (_playersActionFrames.Count > 0 && _playersActionFrames[_elapsedFrames].Where(data => data.PlayerID == 1 && data.PlayerState == EPlayerState.IDLE).Any() && _playersActionFrames[_elapsedFrames - 1].Where(data => data.PlayerID == 1 && data.PlayerState == EPlayerState.MELEE && data.IsHitting).Any())
         {
-            // then return the current frame
+            // Get the state frame of the player 1 from the frame before
             if (_playersActionFrames[_elapsedFrames - 1][0].PlayerID == 1)
             {
                 _p1EndFrame = _playersActionFrames[_elapsedFrames - 1][0].StateFrame;
@@ -113,7 +116,7 @@ public class FrameManager : Singleton<FrameManager>
         // if there is frames that as been recorded and there is a recorded current frame about the player 2 which the player 2 is in idle and was hurt the frame before
         if (_playersActionFrames.Count > 0 && _playersActionFrames[_elapsedFrames].Where(data => data.PlayerID == 2 && data.PlayerState == EPlayerState.IDLE).Any() && _playersActionFrames[_elapsedFrames - 1].Where(data => data.PlayerID == 2 && data.PlayerState == EPlayerState.HURT).Any())
         {
-            // then return the current frame
+            // Get the state frame of the player 2 from the frame before
             if (_playersActionFrames[_elapsedFrames - 1][0].PlayerID == 2)
             {
                 _p2EndFrame = _playersActionFrames[_elapsedFrames - 1][0].StateFrame;
