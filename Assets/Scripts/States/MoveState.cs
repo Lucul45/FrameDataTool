@@ -6,6 +6,7 @@ public class MoveState : APlayerState
 {
     public override void Enter()
     {
+        StateFrame = 0;
         _stateManager.AttackPressed += Attack;
     }
 
@@ -24,6 +25,7 @@ public class MoveState : APlayerState
 
     public override void Update()
     {
+        StateFrame++;
         // if we don't move, change to idle
         if (_stateManager.MovementInput.x == 0)
         {

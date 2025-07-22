@@ -9,55 +9,33 @@ public class FrameDataManager : Singleton<FrameDataManager>
     [SerializeField] private TextMeshProUGUI _activeFrameText;
     [SerializeField] private TextMeshProUGUI _cooldownFrameText;
     [SerializeField] private TextMeshProUGUI _advantageFrameText;
-    [SerializeField] private PlayerStateMachineManager _stateMachineManager;
+    [SerializeField] private PlayerStateMachineManager _p1;
+    [SerializeField] private PlayerStateMachineManager _p2;
 
     private int _p1EndFrame = 0;
     private int _p2EndFrame = 0;
-    private int _p1Updated = 0;
-    private int _p2Updated = 0;
-
-    public int P1Updated
-    {
-        get { return _p1Updated; }
-        set { _p1Updated = value; }
-    }
-    public int P2Updated
-    {
-        get { return _p2Updated; }
-        set { _p2Updated = value; }
-    }
+    private bool _advantageCalculated = false;
     
     // Change the frame data UI
     public void ChangeFrameDataUI()
     {
-        if (_stateMachineManager.EnumCurrentState == EPlayerState.MELEE)
+        if (_p1.EnumCurrentState == EPlayerState.MELEE)
         {
             // Simply get the current attack data and show it in UI
-            if (_stateMachineManager.CurrentAttack != null)
+            if (_p1.CurrentAttack != null)
             {
-                _startupFrameText.text = "Start up frames : " + _stateMachineManager.CurrentAttack.AttackStartup;
-                _activeFrameText.text = "Active frames : " + (_stateMachineManager.CurrentAttack.AttackStartup + 1) + "-" + (_stateMachineManager.CurrentAttack.AttackCooldown - 1);
-                _cooldownFrameText.text = "Cooldown frames : " + _stateMachineManager.CurrentAttack.AttackCooldown;
+                _startupFrameText.text = "Start up frames : " + _p1.CurrentAttack.AttackStartup;
+                _activeFrameText.text = "Active frames : " + (_p1.CurrentAttack.AttackStartup + 1) + "-" + (_p1.CurrentAttack.AttackCooldown - 1);
+                _cooldownFrameText.text = "Cooldown frames : " + _p1.CurrentAttack.AttackCooldown;
             }
         }
         // Getting the last frames of the attack and of the hurting state
-        if (FrameManager.Instance.GetEndFrameAttack() != 0)
-        {
-            _p1EndFrame = FrameManager.Instance.GetEndFrameAttack();
-        }
-        if (FrameManager.Instance.GetEndFrameHurt() != 0)
-        {
-            _p2EndFrame = FrameManager.Instance.GetEndFrameHurt();
-        }
+        _p1EndFrame = (int)_p1.LastAttackToIdleFrame;
+        _p2EndFrame = (int)_p2.LastHurtToIdleFrame;
         // security to avoid errors and making sure both end frames are updated
-        if (_p1EndFrame > 0 && _p2EndFrame > 0 && _p1Updated == _p2Updated)
+        if (_p1EndFrame > 0 && _p2EndFrame > 0 && !_advantageCalculated)
         {
-            //Debug.Log(_p1EndFrame + "/" + _p2EndFrame);
-            _advantageFrameText.text = "Advantage frames : " + (_p2EndFrame - _p1EndFrame);
-        }
-        else
-        {
-            _advantageFrameText.text = "Advantage frames : --";
+            ShowFrameAdvantage();
         }
     }
 
@@ -65,5 +43,18 @@ public class FrameDataManager : Singleton<FrameDataManager>
     {
         // Adding the method to the update
         FrameManager.Instance.FrameUpdate += ChangeFrameDataUI;
+    }
+
+    private void ShowFrameAdvantage()
+    {
+        _advantageFrameText.text = "Advantage frames : " + (_p2EndFrame - _p1EndFrame);
+        _advantageCalculated = true;
+        _p1.ResetLastAttackToIdleFrame();
+        _p2.ResetLastHurtToIdleFrame();
+    }
+
+    public void ResetAdvantageCalculated()
+    {
+        _advantageCalculated = false;
     }
 }

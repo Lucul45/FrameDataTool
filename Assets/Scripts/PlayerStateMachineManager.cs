@@ -35,7 +35,11 @@ public class PlayerStateMachineManager : Singleton<PlayerStateMachineManager>
     [SerializeField] private GameObject _hitbox;
     [SerializeField] private GameObject _otherPlayer;
 
+    private uint _stateFrame = 0;
     private float _fixedTime = 0f;
+
+    private uint _lastAttackToIdleFrame = 0;
+    private uint _lastHurtToIdleFrame = 0;
 
     [SerializeField] private float _playerSpeed = 10f;
     private Vector2 _movementInput = Vector2.zero;
@@ -69,6 +73,10 @@ public class PlayerStateMachineManager : Singleton<PlayerStateMachineManager>
     #endregion Events
 
     #region Properties
+    public int PlayerID
+    {
+        get { return _playerID; }
+    }
     public APlayerState CurrentState
     {
         get
@@ -105,6 +113,19 @@ public class PlayerStateMachineManager : Singleton<PlayerStateMachineManager>
     public GameObject OtherPlayer
     {
         get { return _otherPlayer; }
+    }
+    public uint StateFrame
+    {
+        get { return _stateFrame; }
+        set {  _stateFrame = value; }
+    }
+    public uint LastAttackToIdleFrame
+    {
+        get { return _lastAttackToIdleFrame; }
+    }
+    public uint LastHurtToIdleFrame
+    {
+        get { return _lastHurtToIdleFrame; }
     }
     public Vector2 MovementInput
     {
@@ -181,7 +202,7 @@ public class PlayerStateMachineManager : Singleton<PlayerStateMachineManager>
         {
             PlayerID = _playerID,
             PlayerState = _currentState,
-            StateFrame = 0,
+            StateFrame = _stateFrame,
             IsHitting = _isHitting
         };
         FixedTime += Time.deltaTime;
@@ -198,6 +219,16 @@ public class PlayerStateMachineManager : Singleton<PlayerStateMachineManager>
         CurrentState.Exit();
         _stateOnFrame.Clear();
         _lastState = _currentState;
+        if (_currentState == EPlayerState.MELEE && nextState == EPlayerState.IDLE)
+        {
+            _lastAttackToIdleFrame = FrameManager.Instance.ElapsedFrames;
+            UnityEngine.Debug.Log($"Joueur {gameObject.name} (Attack) -> IDLE à la frame : {_lastAttackToIdleFrame}");
+        }
+        if (_currentState == EPlayerState.HURT && nextState == EPlayerState.IDLE)
+        {
+            _lastHurtToIdleFrame = FrameManager.Instance.ElapsedFrames;
+            UnityEngine.Debug.Log($"Joueur {gameObject.name} (Hurt) -> IDLE à la frame : {_lastHurtToIdleFrame}");
+        }
         _currentState = nextState;
         _stateOnFrame.Add(_currentState, FrameManager.Instance.ElapsedFrames);
         CurrentState.Enter();
@@ -244,6 +275,16 @@ public class PlayerStateMachineManager : Singleton<PlayerStateMachineManager>
         _animator.SetBool("IsAttacking3", false);
     }
 
+    public void ResetLastAttackToIdleFrame()
+    {
+        _lastAttackToIdleFrame = 0;
+    }
+
+    public void ResetLastHurtToIdleFrame()
+    {
+        _lastHurtToIdleFrame = 0;
+    }
+
     // if we collide with an attack, change to hurt state
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -252,6 +293,7 @@ public class PlayerStateMachineManager : Singleton<PlayerStateMachineManager>
             if (collision.GetComponentInParent<PlayerStateMachineManager>().CurrentAttack != null)
             {
                 ChangeState(EPlayerState.HURT);
+                CurrentState.AttackHitten = collision.GetComponentInParent<PlayerStateMachineManager>().CurrentAttack;
             }
         }
     }

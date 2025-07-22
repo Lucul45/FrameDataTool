@@ -6,10 +6,10 @@ using UnityEngine;
 
 public class MeleeBaseState : APlayerState
 {
-    private int _currentAttackFrame = 0;
-
     public override void Enter()
     {
+        StateFrame = 0;
+        FrameDataManager.Instance.ResetAdvantageCalculated();
         // Getting the current attack based on which index we are on
         foreach (AttackData a in _stateManager.AttacksData)
         {
@@ -40,8 +40,7 @@ public class MeleeBaseState : APlayerState
 
     public override void Update()
     {
-        // Calculate which frame the current attack is on
-        _currentAttackFrame = Convert.ToInt32(_animator.GetCurrentAnimatorStateInfo(0).normalizedTime * (_animator.GetCurrentAnimatorClipInfo(0)[0].clip.length * _animator.GetCurrentAnimatorClipInfo(0)[0].clip.frameRate));
+        StateFrame++;
         // Making sure the character can't move while attacking
         _stateManager.Move(Vector2.zero);
         // If the character attack is on a frame where he can combo
@@ -53,14 +52,11 @@ public class MeleeBaseState : APlayerState
         {
             _stateManager.ShouldCombo = false;
         }
-        // If the character finished his attack animation
-        if (_animator.GetBool(_stateManager.CurrentAttack.AnimatorCondition) && _animator.GetCurrentAnimatorStateInfo(0).IsName(_stateManager.CurrentAttack.AnimationName))
+        // If the current state frame is greater or equal to the clip length in frames
+        if (StateFrame >= _stateManager.CurrentAttack.Clip.length * 60)
         {
-            if (_animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f && !_animator.IsInTransition(0))
-            {
-                _stateManager.ResetCombo();
-                _stateManager.ChangeState(EPlayerState.IDLE);
-            }
+            _stateManager.ResetCombo();
+            _stateManager.ChangeState(EPlayerState.IDLE);
         }
     }
 
