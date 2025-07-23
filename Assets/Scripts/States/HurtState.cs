@@ -19,7 +19,7 @@ public class HurtState : APlayerState
         }
         FrameDataManager.Instance.ResetAdvantageCalculated();
         _stateManager.ResetCombo();
-        //_stateManager.Knockback(_stateManager.OtherPlayer.GetComponent<PlayerStateMachineManager>().CurrentAttack.KnockbackForce, 5);
+        //_stateManager.Knockback(AttackHitten.KnockbackForce, 5);
         _animator.SetBool("IsHurt", true);
     }
 
@@ -40,7 +40,7 @@ public class HurtState : APlayerState
     {
         StateFrame++;
         // If the frame on the current is greater or equal than hitstun, then change state to idle
-        if (StateFrame >= (int)(AttackHitten.Clip.length * 60) - _hitAttackFrame + _attackHitten.AdvantageFrames)
+        if (StateFrame >= (int)(AttackHitten.Clip.length * 60) - _hitAttackFrame + AttackHitten.AdvantageFrames)
         {
             _stateManager.ChangeState(EPlayerState.IDLE);
         }

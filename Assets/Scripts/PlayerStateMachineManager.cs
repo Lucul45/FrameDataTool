@@ -33,7 +33,6 @@ public class PlayerStateMachineManager : Singleton<PlayerStateMachineManager>
     [SerializeField] private SpriteRenderer _spriteRenderer;
     [SerializeField] private AttackData[] _attacksData;
     [SerializeField] private GameObject _hitbox;
-    [SerializeField] private GameObject _otherPlayer;
 
     private uint _stateFrame = 0;
 
@@ -106,10 +105,6 @@ public class PlayerStateMachineManager : Singleton<PlayerStateMachineManager>
     public GameObject Hitbox
     {
         get { return _hitbox; }
-    }
-    public GameObject OtherPlayer
-    {
-        get { return _otherPlayer; }
     }
     public uint StateFrame
     {
