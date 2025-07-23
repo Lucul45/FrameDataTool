@@ -11,7 +11,7 @@ I started to be really into programming 3/4 years ago. I learned Unity through a
 
 ## The tool
 
-This project is frame data tool for a fighting style game. It contains an on 60 frames seconds update, a frame data UI that show the frames on the current and a calculation of the frame advantage of the attacks.
+This project is frame data tool for a fighting style game. It contains an on 60 frames seconds update, a frame data UI that show the frames of the current attack and a calculation of the frame advantage of the attacks.
 
 ### Requirements
 
