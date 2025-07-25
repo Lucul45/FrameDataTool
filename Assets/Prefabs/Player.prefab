@@ -90,7 +90,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b1cdabe8fe1b914b83d1f679bafb55e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerStateMachineManager: {fileID: 1902538222313046845}
+  _p1: {fileID: 3075600279879583801}
+  _p2: {fileID: 0}
+  _attackCollider: {fileID: 0}
 --- !u!1 &3555388760170741894
 GameObject:
   m_ObjectHideFlags: 0
@@ -102,7 +104,7 @@ GameObject:
   - component: {fileID: 6032529101743062088}
   - component: {fileID: 1548162989360856272}
   - component: {fileID: 216382335144830490}
-  - component: {fileID: 1902538222313046845}
+  - component: {fileID: 3075600279879583801}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player1
@@ -153,7 +155,7 @@ MonoBehaviour:
   m_ActionEvents:
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1902538222313046845}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PlayerStateMachineManager, Assembly-CSharp
         m_MethodName: GetMovementInput
         m_Mode: 0
@@ -169,7 +171,7 @@ MonoBehaviour:
     m_ActionName: Player/Movement[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d,/DualShock4GamepadHID/leftStick]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1902538222313046845}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PlayerStateMachineManager, Assembly-CSharp
         m_MethodName: GetAttackInput
         m_Mode: 0
@@ -215,7 +217,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &1902538222313046845
+--- !u!114 &3075600279879583801
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -224,20 +226,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 3555388760170741894}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 54e30983ddc4c1b4b8a044a6948e96bf, type: 3}
+  m_Script: {fileID: 11500000, guid: 8cf055ce1356258439fe41fb80556910, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _playerID: 0
-  _rb: {fileID: 216382335144830490}
-  _animator: {fileID: 1875955441753283811}
-  _spriteRenderer: {fileID: 37026037613520414}
+  _animator: {fileID: 0}
+  _rb: {fileID: 0}
+  _spriteRenderer: {fileID: 0}
   _attacksData:
   - {fileID: 11400000, guid: 92e91e8ad5cf16e429e3469e55cc9303, type: 2}
   - {fileID: 11400000, guid: e434ac1d6181a0944836db519a03c621, type: 2}
   - {fileID: 11400000, guid: bb0cbbcfd07077a49afa4124532183c7, type: 2}
-  _hitbox: {fileID: 3195654395752132743}
-  _otherPlayer: {fileID: 0}
-  _playerSpeed: 7
+  _playerSpeed: 10
 --- !u!1 &7770802639889903698
 GameObject:
   m_ObjectHideFlags: 0

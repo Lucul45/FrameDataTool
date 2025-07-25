@@ -7,6 +7,8 @@ using System.Reflection;
 
 public class FrameManager : Singleton<FrameManager>
 {
+    [SerializeField] private FrameDataUI _frameDataUI;
+
     // time passed in seconds
     private float _elapsedTime = 0;
     // time passed in frames
@@ -26,6 +28,10 @@ public class FrameManager : Singleton<FrameManager>
         public bool IsHitting { get; set; }
     }
 
+    public FrameDataUI FrameDataUI
+    {
+        get { return _frameDataUI; }
+    }
     public uint ElapsedFrames
     {
         get { return _elapsedFrames; }

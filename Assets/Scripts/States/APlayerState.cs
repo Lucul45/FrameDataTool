@@ -8,17 +8,28 @@ public abstract class APlayerState
     protected Animator _animator;
     protected SpriteRenderer _spriteRenderer;
     protected Rigidbody2D _rb;
+    protected PlayerController _playerController;
 
-    protected uint _stateFrame = 0;
+    protected uint _stateFrameP1 = 0;
+    protected uint _stateFrameP2 = 0;
     protected AttackData _attackHitten;
 
-    protected uint StateFrame
+    protected uint StateFrameP1
     {
-        get {  return _stateFrame; }
+        get {  return _stateFrameP1; }
         set 
         {  
-            _stateFrame = value;
-            _stateManager.StateFrame = _stateFrame;
+            _stateFrameP1 = value;
+            _stateManager.StateFrameP1 = _stateFrameP1;
+        }
+    }
+    protected uint StateFrameP2
+    {
+        get { return _stateFrameP2; }
+        set
+        {
+            _stateFrameP2 = value;
+            _stateManager.StateFrameP2 = _stateFrameP2;
         }
     }
     public AttackData AttackHitten
@@ -27,7 +38,7 @@ public abstract class APlayerState
         set {  _attackHitten = value; }
     }
 
-    public abstract void Init(PlayerStateMachineManager stateManager, Animator animator, SpriteRenderer spriteRenderer, Rigidbody2D rb);
+    public abstract void Init(PlayerStateMachineManager stateManager, Animator animator, SpriteRenderer spriteRenderer, Rigidbody2D rb, PlayerController _playerController);
 
     public abstract void Enter();
 
