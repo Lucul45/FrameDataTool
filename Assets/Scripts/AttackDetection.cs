@@ -14,13 +14,13 @@ public class AttackDetection : MonoBehaviour
         {
             _p1.IsHitting = true;
             PlayerStateMachineManager.Instance.ChangeStateP2(EPlayerState.HURT);
-            PlayerStateMachineManager.Instance.CurrentStateP2.AttackHitten = collision.GetComponentInParent<PlayerController>().CurrentAttack;
+            PlayerStateMachineManager.Instance.CurrentStateP2.AttackHitten = GetComponentInParent<PlayerController>().CurrentAttack;
         }
         else if (collision.tag == "Player1")
         {
             _p2.IsHitting = true;
             PlayerStateMachineManager.Instance.ChangeStateP1(EPlayerState.HURT);
-            PlayerStateMachineManager.Instance.CurrentStateP1.AttackHitten = collision.GetComponentInParent<PlayerController>().CurrentAttack;
+            PlayerStateMachineManager.Instance.CurrentStateP1.AttackHitten = GetComponentInParent<PlayerController>().CurrentAttack;
         }
     }
 }
