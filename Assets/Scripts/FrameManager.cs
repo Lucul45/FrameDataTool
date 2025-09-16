@@ -9,9 +9,13 @@ public class FrameManager : Singleton<FrameManager>
 {
     [SerializeField] private FrameDataUI _frameDataUI;
 
-    // time passed in seconds
+    /// <summary>
+    /// Time passed in seconds
+    /// </summary>
     private float _elapsedTime = 0;
-    // time passed in frames
+    /// <summary>
+    /// Time passed in frames
+    /// </summary>
     private uint _elapsedFrames = 0;
 
     private uint _p1EndFrame = 0;
@@ -32,16 +36,23 @@ public class FrameManager : Singleton<FrameManager>
     {
         get { return _frameDataUI; }
     }
+    /// <summary>
+    /// Time passed in seconds
+    /// </summary>
     public uint ElapsedFrames
     {
         get { return _elapsedFrames; }
     }
+
     public Dictionary<uint, List<FrameActionData>> PlayersActionFrames
     {
         get { return _playersActionFrames; }
     }
 
     private event Action _frameUpdate = null;
+    /// <summary>
+    /// Update that is called once every frame
+    /// </summary>
     public event Action FrameUpdate
     {
         add
@@ -67,7 +78,10 @@ public class FrameManager : Singleton<FrameManager>
         }
     }
 
-    // Add the data of the current frame to the dictionary
+    /// <summary>
+    /// Add the data of the current frame to the dictionary
+    /// </summary>
+    /// <param name="newData"></param>
     public void AddActionFrameData(FrameActionData newData)
     {
         // There's already data for the current frame
@@ -81,7 +95,9 @@ public class FrameManager : Singleton<FrameManager>
         }
     }
 
-    // Remove the earliest frame data
+    /// <summary>
+    /// Remove the earliest frame data
+    /// </summary>
     public void RemoveActionFrameData()
     {
         // There 1000 frames registered
@@ -97,41 +113,5 @@ public class FrameManager : Singleton<FrameManager>
             }
             _playersActionFrames.Remove(minFrame);
         }
-    }
-
-    public uint GetEndFrameAttack()
-    {
-        // if there is frames that as been recorded and there is a recorded current frame about the player 1 which the player 1 is in idle and was attacking the frame before
-        if (_playersActionFrames.Count > 0 && _playersActionFrames[_elapsedFrames].Where(data => data.PlayerID == 1 && data.PlayerState == EPlayerState.IDLE).Any() && _playersActionFrames[_elapsedFrames - 1].Where(data => data.PlayerID == 1 && data.PlayerState == EPlayerState.MELEE && data.IsHitting).Any())
-        {
-            // Get the state frame of the player 1 from the frame before
-            if (_playersActionFrames[_elapsedFrames - 1][0].PlayerID == 1)
-            {
-                _p1EndFrame = _playersActionFrames[_elapsedFrames - 1][0].StateFrame;
-            }
-            else
-            {
-                _p1EndFrame = _playersActionFrames[_elapsedFrames - 1][1].StateFrame;
-            }
-        }
-        return _p1EndFrame;
-    }
-
-    public uint GetEndFrameHurt()
-    {
-        // if there is frames that as been recorded and there is a recorded current frame about the player 2 which the player 2 is in idle and was hurt the frame before
-        if (_playersActionFrames.Count > 0 && _playersActionFrames[_elapsedFrames].Where(data => data.PlayerID == 2 && data.PlayerState == EPlayerState.IDLE).Any() && _playersActionFrames[_elapsedFrames - 1].Where(data => data.PlayerID == 2 && data.PlayerState == EPlayerState.HURT).Any())
-        {
-            // Get the state frame of the player 2 from the frame before
-            if (_playersActionFrames[_elapsedFrames - 1][0].PlayerID == 2)
-            {
-                _p2EndFrame = _playersActionFrames[_elapsedFrames - 1][0].StateFrame;
-            }
-            else
-            {
-                _p2EndFrame = _playersActionFrames[_elapsedFrames - 1][1].StateFrame;
-            }
-        }
-        return _p2EndFrame;
     }
 }

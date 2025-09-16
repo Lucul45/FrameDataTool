@@ -112,19 +112,9 @@ public class PlayerController : MonoBehaviour
         _rb.velocity = new Vector2(dir.x * _playerSpeed, 0);
     }
 
-    // Push the player backward
-    public void Knockback(float force, int duration)
-    {
-        uint startFrame = FrameManager.Instance.ElapsedFrames;
-        uint time = 0;
-        while (time < duration)
-        {
-            time = FrameManager.Instance.ElapsedFrames - startFrame;
-            _rb.velocity = -transform.right * force;
-        }
-    }
-
-    // Reset the combo counter
+    /// <summary>
+    /// Reset the combo counter
+    /// </summary>
     public void ResetCombo()
     {
         _attackIndex = 1;
@@ -133,23 +123,4 @@ public class PlayerController : MonoBehaviour
         _animator.SetBool("IsAttacking2", false);
         _animator.SetBool("IsAttacking3", false);
     }
-
-    // if we collide with an attack, change to hurt state
-    /*private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.GetComponentInParent<PlayerController>() != null)
-        {
-            Debug.Log("HIT");
-            if (collision.GetComponentInParent<PlayerController>().PlayerID == 1)
-            {
-                PlayerStateMachineManager.Instance.ChangeStateP2(EPlayerState.HURT);
-                PlayerStateMachineManager.Instance.CurrentStateP2.AttackHitten = collision.GetComponentInParent<PlayerController>().CurrentAttack;
-            }
-            else
-            {
-                PlayerStateMachineManager.Instance.ChangeStateP1(EPlayerState.HURT);
-                PlayerStateMachineManager.Instance.CurrentStateP1.AttackHitten = collision.GetComponentInParent<PlayerController>().CurrentAttack;
-            }
-        }
-    }*/
 }

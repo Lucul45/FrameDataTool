@@ -27,7 +27,6 @@ public class HurtState : APlayerState
         }
         FrameManager.Instance.FrameDataUI.ResetAdvantageCalculated();
         _playerController.ResetCombo();
-        //_stateManager.Knockback(AttackHitten.KnockbackForce, 5);
         _animator.SetBool("IsHurt", true);
     }
 

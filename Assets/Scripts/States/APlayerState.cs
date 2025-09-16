@@ -14,6 +14,9 @@ public abstract class APlayerState
     protected uint _stateFrameP2 = 0;
     protected AttackData _attackHitten;
 
+    /// <summary>
+    /// The number of frames during which player 1 remained in the current state.
+    /// </summary>
     protected uint StateFrameP1
     {
         get {  return _stateFrameP1; }
@@ -23,6 +26,9 @@ public abstract class APlayerState
             _stateManager.StateFrameP1 = _stateFrameP1;
         }
     }
+    /// <summary>
+    /// The number of frames during which player 2 remained in the current state.
+    /// </summary>
     protected uint StateFrameP2
     {
         get { return _stateFrameP2; }
@@ -32,6 +38,9 @@ public abstract class APlayerState
             _stateManager.StateFrameP2 = _stateFrameP2;
         }
     }
+    /// <summary>
+    /// The data of the attack the 
+    /// </summary>
     public AttackData AttackHitten
     {
         get { return _attackHitten; }
