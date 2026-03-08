@@ -18,10 +18,6 @@ public class FrameManager : Singleton<FrameManager>
     /// </summary>
     private uint _elapsedFrames = 0;
 
-    private uint _p1EndFrame = 0;
-    private uint _p2EndFrame = 0;
-    private FrameActionData _p1EndFrameData;
-
     private List<FrameActionData> _dataList = new List<FrameActionData>();
     private Dictionary<uint, List<FrameActionData>> _playersActionFrames = new Dictionary<uint, List<FrameActionData>>();
     public struct FrameActionData
