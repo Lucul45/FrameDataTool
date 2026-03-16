@@ -10,6 +10,7 @@ public class AttackData : ScriptableObject
     [SerializeField] private string _animationName;
     [SerializeField] private string _animatorCondition;
     [SerializeField] private int _attackDamage;
+    [SerializeField] private int _attackTotalTime;
     [SerializeField] private int _attackStartup;
     [SerializeField] private int _attackCooldown;
     [SerializeField] private float _advantageFrames;
@@ -36,6 +37,10 @@ public class AttackData : ScriptableObject
     public int AttackDamage
     {
         get { return _attackDamage; }
+    }
+    public int AttackTotalTime
+    {
+        get { return _attackTotalTime; }
     }
     public int AttackStartup
     {

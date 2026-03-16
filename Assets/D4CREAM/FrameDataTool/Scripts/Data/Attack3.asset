@@ -17,6 +17,7 @@ MonoBehaviour:
   _animationName: Attack3
   _animatorCondition: IsAttacking3
   _attackDamage: 12
+  _attackTotalTime: 51
   _attackStartup: 7
   _attackCooldown: 37
   _advantageFrames: -10
