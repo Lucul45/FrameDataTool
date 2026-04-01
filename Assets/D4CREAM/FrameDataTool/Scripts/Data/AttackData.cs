@@ -137,17 +137,4 @@ public class AttackData : ScriptableObject
 
         Debug.Log($"Event '{functionName}' add to {timeInSeconds}s on the {clip.name} clip");
     }
-
-    public void ClearAnimationEvents(AnimationClip clip)
-    {
-        if (clip == null) return;
-
-        // We defined a array of empty events
-        AnimationEvent[] emptyEvents = new AnimationEvent[0];
-
-        // We put the empty events on the clip
-        AnimationUtility.SetAnimationEvents(clip, emptyEvents);
-
-        Debug.Log($"All events of the {clip.name} clip have been deleted");
-    }
 }
