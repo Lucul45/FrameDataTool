@@ -22,6 +22,4 @@ MonoBehaviour:
   _attackRecovery: 28
   _advantageFrames: 0
   _knockbackForce: 1
-  _canComboFrames:
-  - {fileID: 21300000, guid: 1edcfb3d4d8a0074b8e469cbc5360f9b, type: 3}
-  _endFrame: {fileID: 21300000, guid: fc6d9d8bec352454aa9cd4481039a725, type: 3}
+  _canComboFrames: 0f00000016000000

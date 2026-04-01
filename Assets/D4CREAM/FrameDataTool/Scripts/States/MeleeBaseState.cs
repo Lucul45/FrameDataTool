@@ -47,7 +47,7 @@ public class MeleeBaseState : APlayerState
         // Making sure the character can't move while attacking
         _playerController.Move(Vector2.zero);
         // If the character attack is on a frame where he can combo
-        if (_playerController.CurrentAttack.CanComboFrames.Contains<Sprite>(_spriteRenderer.sprite))
+        if (StateFrame >= _playerController.CurrentAttack.CanComboFrames[0] && StateFrame <= _playerController.CurrentAttack.CanComboFrames[1])
         {
             _playerController.ShouldCombo = true;
         }
@@ -56,7 +56,7 @@ public class MeleeBaseState : APlayerState
             _playerController.ShouldCombo = false;
         }
         // If the current state frame is greater or equal to the clip length in frames
-        if (StateFrame >= _playerController.CurrentAttack.Clip.length * 60)
+        if (StateFrame >= _playerController.CurrentAttack.AttackTotalTime)
         {
             _playerController.ResetCombo();
             _stateManager.ChangeState(_playerController.PlayerID, EPlayerState.IDLE);

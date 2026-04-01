@@ -7,18 +7,20 @@ using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class HurtState : APlayerState
 {
-    private uint _hitAttackFrame = 0;
+    private int _hitAttackFrame = 0;
     public override void Enter()
     {
         base.Enter();
-        if (FrameManager.Instance.PlayersActionFrames[FrameManager.Instance.ElapsedFrames][0].PlayerID != _playerController.PlayerID)
+
+        if (_opponent.PlayerID == 1)
         {
-            _hitAttackFrame = FrameManager.Instance.PlayersActionFrames[FrameManager.Instance.ElapsedFrames][0].StateFrame;
+            _hitAttackFrame = (int)PlayerStateMachineManager.Instance.CurrentStateP1.StateFrame;
         }
         else
         {
-            _hitAttackFrame = FrameManager.Instance.PlayersActionFrames[FrameManager.Instance.ElapsedFrames][1].StateFrame;
+            _hitAttackFrame = (int)PlayerStateMachineManager.Instance.CurrentStateP2.StateFrame;
         }
+
         FrameManager.Instance.FrameDataUI.ResetAdvantageCalculated();
         _playerController.ResetCombo();
         _animator.SetBool("IsHurt", true);
@@ -42,8 +44,10 @@ public class HurtState : APlayerState
     public override void Update()
     {
         base.Update();
-        // If the frame on the current is greater or equal than hitstun, then change state to idle
-        if (StateFrame >= (int)(_opponent.CurrentAttack.Clip.length * 60) - _hitAttackFrame + _opponent.CurrentAttack.AdvantageFrames)
+
+        int hitstunDuration = _opponent.CurrentAttack.AttackTotalTime - _hitAttackFrame + _opponent.CurrentAttack.AdvantageFrames;
+
+        if (StateFrame >= hitstunDuration)
         {
             _stateManager.ChangeState(_playerController.PlayerID, EPlayerState.IDLE);
         }

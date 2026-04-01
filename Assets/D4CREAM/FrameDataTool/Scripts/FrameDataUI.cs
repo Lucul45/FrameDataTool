@@ -27,7 +27,7 @@ public class FrameDataUI : MonoBehaviour
             {
                 _startupFrameText.text = "Start up frames : " + _p1.CurrentAttack.AttackStartup;
                 _activeFrameText.text = "Active frames : " + (_p1.CurrentAttack.AttackStartup + 1) + "-" + (_p1.CurrentAttack.AttackTotalTime - _p1.CurrentAttack.AttackRecovery);
-                _cooldownFrameText.text = "Recovery frames : " + (_p1.CurrentAttack.AttackTotalTime);
+                _cooldownFrameText.text = "Recovery frames : " + (_p1.CurrentAttack.AttackRecovery);
             }
         }
         // Getting the last frames of the attack and of the hurting state

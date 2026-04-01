@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Attack", menuName = "AttackData")]
@@ -13,10 +14,9 @@ public class AttackData : ScriptableObject
     [SerializeField] private int _attackTotalTime;
     [SerializeField] private int _attackStartup;
     [SerializeField] private int _attackRecovery;
-    [SerializeField] private float _advantageFrames;
+    [SerializeField] private int _advantageFrames;
     [SerializeField] private float _knockbackForce;
-    [SerializeField] private Sprite[] _canComboFrames;
-    [SerializeField] private Sprite _endFrame;
+    [SerializeField] private int[] _canComboFrames = new int[2];
 
     public int AttackID
     {
@@ -50,7 +50,7 @@ public class AttackData : ScriptableObject
     {
         get { return _attackRecovery; }
     }
-    public float AdvantageFrames
+    public int AdvantageFrames
     {
         get { return _advantageFrames; }
     }
@@ -58,13 +58,9 @@ public class AttackData : ScriptableObject
     {
         get { return _knockbackForce; }
     }
-    public Sprite[] CanComboFrames
+    public int[] CanComboFrames
     {
         get { return _canComboFrames; }
-    }
-    public Sprite EndFrame
-    {
-        get { return _endFrame; }
     }
 
     private void OnValidate()
@@ -105,5 +101,54 @@ public class AttackData : ScriptableObject
         {
             Debug.LogWarning(name + " Negative Attack recovery !");
         }
+        if (CanComboFrames[0] < 0)
+        {
+            Debug.LogWarning(name + " Negative Combo Frames start !");
+        }
+        if (CanComboFrames[1] < 0)
+        {
+            Debug.LogWarning(name + " Negative Combo Frames end !");
+        }
+        if (CanComboFrames[0] > CanComboFrames[1])
+        {
+            Debug.LogWarning(name + " Combo Frames start is superior to end !");
+        }
+
+        //ClearAnimationEvents(Clip);
+        AddEventsToClip(Clip, (float)(AttackStartup + 1) / 60, "Attack startup", (float)(AttackTotalTime - AttackRecovery) / 60, "Attack recovery");
+    }
+
+    public void AddEventsToClip(AnimationClip clip, float timeInSeconds, string functionName, float timeInSeconds2, string functionName2)
+    {
+        AnimationEvent[] animationEvents = new AnimationEvent[2];
+
+        AnimationEvent animEvent = new AnimationEvent();
+        AnimationEvent animEvent2 = new AnimationEvent();
+        animEvent.time = timeInSeconds;
+        animEvent2.time = timeInSeconds2;
+
+        animationEvents.SetValue(animEvent, 0);
+        animationEvents.SetValue(animEvent2, 1);
+
+        // Event name displayed
+        animationEvents[0].functionName = functionName;
+        animationEvents[1].functionName = functionName2;
+
+        AnimationUtility.SetAnimationEvents(clip, animationEvents);
+
+        Debug.Log($"Event '{functionName}' add to {timeInSeconds}s on the {clip.name} clip");
+    }
+
+    public void ClearAnimationEvents(AnimationClip clip)
+    {
+        if (clip == null) return;
+
+        // We defined a array of empty events
+        AnimationEvent[] emptyEvents = new AnimationEvent[0];
+
+        // We put the empty events on the clip
+        AnimationUtility.SetAnimationEvents(clip, emptyEvents);
+
+        Debug.Log($"All events of the {clip.name} clip have been deleted");
     }
 }
