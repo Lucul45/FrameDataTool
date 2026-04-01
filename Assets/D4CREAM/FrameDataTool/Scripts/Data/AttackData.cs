@@ -114,7 +114,6 @@ public class AttackData : ScriptableObject
             Debug.LogWarning(name + " Combo Frames start is superior to end !");
         }
 
-        //ClearAnimationEvents(Clip);
         AddEventsToClip(Clip, (float)(AttackStartup + 1) / 60, "Attack startup", (float)(AttackTotalTime - AttackRecovery) / 60, "Attack recovery");
     }
 
