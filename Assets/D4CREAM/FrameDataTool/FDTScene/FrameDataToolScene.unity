@@ -145,9 +145,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: CanvasFrameData
       objectReference: {fileID: 0}
+    - target: {fileID: 2607143387308675801, guid: ce2307519a6d0a14bb407c8bf88fd1b7, type: 3}
+      propertyPath: m_Name
+      value: RecoveryFrameText
+      objectReference: {fileID: 0}
     - target: {fileID: 3859933945389846589, guid: ce2307519a6d0a14bb407c8bf88fd1b7, type: 3}
       propertyPath: m_text
       value: 'Advantage frames : --'
+      objectReference: {fileID: 0}
+    - target: {fileID: 5352955397257966373, guid: ce2307519a6d0a14bb407c8bf88fd1b7, type: 3}
+      propertyPath: m_text
+      value: 'Recovery frames : '
       objectReference: {fileID: 0}
     - target: {fileID: 7954341249584316749, guid: ce2307519a6d0a14bb407c8bf88fd1b7, type: 3}
       propertyPath: m_Pivot.x
@@ -640,6 +648,14 @@ PrefabInstance:
       objectReference: {fileID: 997989789}
     - target: {fileID: 409881080990962524, guid: eb385def190ea0c4987b40a970537b0b, type: 3}
       propertyPath: _player2
+      value: 
+      objectReference: {fileID: 187335399}
+    - target: {fileID: 409881080990962524, guid: eb385def190ea0c4987b40a970537b0b, type: 3}
+      propertyPath: _players.Array.data[0]
+      value: 
+      objectReference: {fileID: 997989789}
+    - target: {fileID: 409881080990962524, guid: eb385def190ea0c4987b40a970537b0b, type: 3}
+      propertyPath: _players.Array.data[1]
       value: 
       objectReference: {fileID: 187335399}
     - target: {fileID: 2961521278492300527, guid: eb385def190ea0c4987b40a970537b0b, type: 3}

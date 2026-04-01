@@ -9,14 +9,7 @@ public class MeleeBaseState : APlayerState
 {
     public override void Enter()
     {
-        if (_playerController.PlayerID == 1)
-        {
-            StateFrameP1 = 0;
-        }
-        else
-        {
-            StateFrameP2 = 0;
-        }
+        base.Enter();
         FrameManager.Instance.FrameDataUI.ResetAdvantageCalculated();
         // Getting the current attack based on which index we are on
         foreach (AttackData a in _playerController.AttacksData)
@@ -36,8 +29,9 @@ public class MeleeBaseState : APlayerState
         _playerController.AttackPressed -= Attack;
     }
 
-    public override void Init(PlayerStateMachineManager stateManager, Animator animator, SpriteRenderer spriteRenderer, Rigidbody2D rb, PlayerController playerController)
+    public override void Init(PlayerController opponent, PlayerStateMachineManager stateManager, Animator animator, SpriteRenderer spriteRenderer, Rigidbody2D rb, PlayerController playerController)
     {
+        _opponent = opponent;
         _stateManager = stateManager;
         _animator = animator;
         _spriteRenderer = spriteRenderer;
@@ -49,14 +43,7 @@ public class MeleeBaseState : APlayerState
 
     public override void Update()
     {
-        if (_playerController.PlayerID == 1)
-        {
-            StateFrameP1++;
-        }
-        else
-        {
-            StateFrameP2++;
-        }
+        base.Update();
         // Making sure the character can't move while attacking
         _playerController.Move(Vector2.zero);
         // If the character attack is on a frame where he can combo
@@ -68,23 +55,11 @@ public class MeleeBaseState : APlayerState
         {
             _playerController.ShouldCombo = false;
         }
-        if (_playerController.PlayerID == 1)
+        // If the current state frame is greater or equal to the clip length in frames
+        if (StateFrame >= _playerController.CurrentAttack.Clip.length * 60)
         {
-            // If the current state frame is greater or equal to the clip length in frames
-            if (StateFrameP1 >= _playerController.CurrentAttack.Clip.length * 60)
-            {
-                _playerController.ResetCombo();
-                _stateManager.ChangeStateP1(EPlayerState.IDLE);
-            }
-        }
-        else
-        {
-            // If the current state frame is greater or equal to the clip length in frames
-            if (StateFrameP2 >= _playerController.CurrentAttack.Clip.length * 60)
-            {
-                _playerController.ResetCombo();
-                _stateManager.ChangeStateP2(EPlayerState.IDLE);
-            }
+            _playerController.ResetCombo();
+            _stateManager.ChangeState(_playerController.PlayerID, EPlayerState.IDLE);
         }
     }
 
@@ -94,14 +69,7 @@ public class MeleeBaseState : APlayerState
         if (_playerController.ShouldCombo && _playerController.AttackIndex < 3)
         {
             _playerController.AttackIndex++;
-            if (_playerController.PlayerID == 1)
-            {
-                _stateManager.ChangeStateP1(EPlayerState.MELEE);
-            }
-            else
-            {
-                _stateManager.ChangeStateP2(EPlayerState.MELEE);
-            }
+            _stateManager.ChangeState(_playerController.PlayerID, EPlayerState.MELEE);
         }
     }
 }

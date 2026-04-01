@@ -12,7 +12,7 @@ public class AttackData : ScriptableObject
     [SerializeField] private int _attackDamage;
     [SerializeField] private int _attackTotalTime;
     [SerializeField] private int _attackStartup;
-    [SerializeField] private int _attackCooldown;
+    [SerializeField] private int _attackRecovery;
     [SerializeField] private float _advantageFrames;
     [SerializeField] private float _knockbackForce;
     [SerializeField] private Sprite[] _canComboFrames;
@@ -46,9 +46,9 @@ public class AttackData : ScriptableObject
     {
         get { return _attackStartup; }
     }
-    public int AttackCooldown
+    public int AttackRecovery
     {
-        get { return _attackCooldown; }
+        get { return _attackRecovery; }
     }
     public float AdvantageFrames
     {
@@ -65,5 +65,45 @@ public class AttackData : ScriptableObject
     public Sprite EndFrame
     {
         get { return _endFrame; }
+    }
+
+    private void OnValidate()
+    {
+        if (AttackID < 0)
+        {
+            Debug.LogWarning(name + " Negative Attack ID !");
+        }
+        if (Clip == null)
+        {
+            Debug.LogWarning(name + " No Animation clip !");
+        }
+        if (AnimationName == string.Empty)
+        {
+            Debug.LogWarning(name + " No Animation name !");
+        }
+        if (AnimatorCondition == string.Empty)
+        {
+            Debug.LogWarning(name + " No Animator condition !");
+        }
+        if (AttackDamage < 0)
+        {
+            Debug.LogWarning(name + " Negative Attack Damage !");
+        }
+        if (AttackTotalTime != (int)(Clip.length * 60))
+        {
+            Debug.LogWarning(name + " Attack total time is not equal to clip length !");
+        }
+        if (AttackTotalTime < 0)
+        {
+            Debug.LogWarning(name + " Negative Attack total time !");
+        }
+        if (AttackStartup < 0)
+        {
+            Debug.LogWarning(name + " Negative Attack startup !");
+        }
+        if (AttackRecovery < 0)
+        {
+            Debug.LogWarning(name + " Negative Attack recovery !");
+        }
     }
 }
